@@ -241,11 +241,12 @@ class OpenAIChatCompletion(LocalChatCompletion):
             )
         return key
 
+    
     def loglikelihood(self, requests, **kwargs):
-        raise NotImplementedError(
-            "Loglikelihood (and therefore `multiple_choice`-type tasks) is not supported for chat completions as OpenAI does not provide prompt logprobs. See https://github.com/EleutherAI/lm-evaluation-harness/issues/942#issuecomment-1777836312 or https://github.com/EleutherAI/lm-evaluation-harness/issues/1196 for more background on this limitation."
+         raise NotImplementedError(
+             "Loglikelihood (and therefore `multiple_choice`-type tasks) is not supported for chat completions as OpenAI does not provide prompt logprobs. See https://github.com/EleutherAI/lm-evaluation-harness/issues/942#issuecomment-1777836312 or https://github.com/EleutherAI/lm-evaluation-harness/issues/1196 for more background on this limitation."
         )
-
+    
     def _create_payload(
         self,
         messages: List[Dict],
