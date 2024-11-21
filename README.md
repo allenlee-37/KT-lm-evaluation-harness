@@ -12,18 +12,19 @@ Tasks can be run with sh scripts files for better integrated tests within the te
 
 **_변경사항 📣_**
 
+- [2024/11/22] leaderboard Musr, Gpqa: exact_match 형식 수정
 - [2024/11/21] Exact_mactch yaml 파일 변환
   - Leaderboard > bbh_mc:
     - boolean_expressions
     - causal_judgement
-- [2024/11/20] Ko-winogrande task 추가 (KT 내부 벤치마크).
+- [2024/11/20] Ko-winogrande task 추가 (KT 내부 벤치마크)
 - GPT API 호출을 위해 exact-match 형태로 변환됨. (logprobability 방식 사용하지 않을 것)
 
 ## TODO
 
-- [2024/11] lm>tasks>BBH의 평가방식을 exact match 및 generate until로 수정
-- [2024/11] lm-eval-harness 지원하지 않는 벤치마크 추가
-- [2024/11] sh scripts 추가 필요
+- lm>tasks>BBH의 평가방식을 exact match 및 generate until로 수정 --> 개발pc로 수정한 BBH push 필요함
+- lm-eval-harness 지원하지 않는 벤치마크 추가
+- sh scripts 추가 필요
 
 | Model          | model                                                                                                                         | model_args              |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
