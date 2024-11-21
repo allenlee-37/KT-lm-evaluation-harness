@@ -1,8 +1,8 @@
 env
 *.pyc
-# 결과 파일 무시
-output/
-results/
+# 결과 파일 통합
+# output/
+# results/
 data/
 lm_cache
 .idea
