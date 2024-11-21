@@ -1,7 +1,8 @@
 cd ./
+pwd
 model="openai-chat-completions"
 model_args="model=gpt-4o"
-tasks="bbh_cot_fewshot_boolean_expressions"
+tasks="leaderboard_bbh" # leaderboard_bbh_boolean_expressions
 lm_eval --model $model \
     --model_args $model_args \
     --tasks $tasks \
@@ -9,4 +10,4 @@ lm_eval --model $model \
     --batch_size auto \
     --log_samples \
     --apply_chat_template \
-    --limit 5
+    --limit 10
