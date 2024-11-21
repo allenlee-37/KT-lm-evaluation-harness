@@ -1,0 +1,37 @@
+task: ko_winogrande
+dataset_path: json
+dataset_name: null
+output_type: generate_until
+training_split: train
+validation_split: validation
+doc_to_text: "빈칸에 들어갈 정답을 보기 1, 2 중에서 고르세요.
+
+정답은 부연설명 없이 1 또는 2로만 표기해주세요.
+
+{{sentence}}
+
+1. {{option1}}
+
+2. {{option2}}
+
+정답은: "
+doc_to_target: "{{answer}}"
+should_decontaminate: true
+doc_to_decontamination_query: sentence
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
+dataset_kwargs:
+  trust_remote_code: true
+  data_files:
+    train: ./lm_eval/tasks/ko_winogrande/data/ko_winogrande_test.jsonl
+    validation: ./lm_eval/tasks/ko_winogrande/data/ko_winogrande_test.jsonl
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "\\s*([12])\\s*"
+      - function: "take_first"
