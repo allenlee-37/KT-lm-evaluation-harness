@@ -23,8 +23,8 @@ def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
             preprocess(doc["Correct Answer"]),
         ]
 
-        random.shuffle(choices)
-        correct_answer_index = choices.index(preprocess(doc["Correct Answer"]))
+        random.shuffle(choices) # 랜덤 셔플한 초이스
+        correct_answer_index = choices.index(preprocess(doc["Correct Answer"])) # 정답 인덱스
 
         out_doc = {
             "choice1": choices[0],

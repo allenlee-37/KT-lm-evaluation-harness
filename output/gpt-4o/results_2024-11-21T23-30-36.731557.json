@@ -1,0 +1,196 @@
+{
+  "results": {
+    "leaderboard_musr": {
+      " ": " ",
+      "alias": "leaderboard_musr"
+    },
+    "leaderboard_musr_murder_mysteries": {
+      "alias": " - leaderboard_musr_murder_mysteries",
+      "exact_match,none": 0.0,
+      "exact_match_stderr,none": 0.0
+    },
+    "leaderboard_musr_object_placements": {
+      "alias": " - leaderboard_musr_object_placements",
+      "exact_match,none": 0.0,
+      "exact_match_stderr,none": 0.0
+    },
+    "leaderboard_musr_team_allocation": {
+      "alias": " - leaderboard_musr_team_allocation",
+      "exact_match,none": 0.0,
+      "exact_match_stderr,none": 0.0
+    }
+  },
+  "group_subtasks": {
+    "leaderboard_musr": [
+      "leaderboard_musr_murder_mysteries",
+      "leaderboard_musr_object_placements",
+      "leaderboard_musr_team_allocation"
+    ]
+  },
+  "configs": {
+    "leaderboard_musr_murder_mysteries": {
+      "task": "leaderboard_musr_murder_mysteries",
+      "dataset_path": "TAUR-Lab/MuSR",
+      "test_split": "murder_mysteries",
+      "doc_to_text": "def doc_to_text(doc):\n    \"\"\"\n    Convert a doc to text.\n    \"\"\"\n    choices = \"\"\n    for i, choice in enumerate(ast.literal_eval(doc[\"choices\"])):\n        choices += f\"({chr(i+97)}) - {choice}\\n\" # 정답 인덱싱 추가\n\n    text = DOC_TO_TEXT.format(\n        narrative=doc[\"narrative\"], question=doc[\"question\"], choices=choices\n    )\n    return text\n",
+      "doc_to_target": "def get_answer(doc):\n    # 1~4까지의 인덱스를 a~d로 변환\n    return f\"({chr(doc['answer_index']+96)})\"\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "exact_match",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "\n\n"
+        ],
+        "do_sample": false
+      },
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 1.0
+      }
+    },
+    "leaderboard_musr_object_placements": {
+      "task": "leaderboard_musr_object_placements",
+      "dataset_path": "TAUR-Lab/MuSR",
+      "test_split": "object_placements",
+      "doc_to_text": "def doc_to_text(doc):\n    \"\"\"\n    Convert a doc to text.\n    \"\"\"\n    choices = \"\"\n    for i, choice in enumerate(ast.literal_eval(doc[\"choices\"])):\n        choices += f\"({chr(i+97)}) - {choice}\\n\" # 정답 인덱싱 추가\n\n    text = DOC_TO_TEXT.format(\n        narrative=doc[\"narrative\"], question=doc[\"question\"], choices=choices\n    )\n    return text\n",
+      "doc_to_target": "def get_answer(doc):\n    # 1~4까지의 인덱스를 a~d로 변환\n    return f\"({chr(doc['answer_index']+96)})\"\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "exact_match",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "\n\n"
+        ],
+        "do_sample": false
+      },
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 1.0
+      }
+    },
+    "leaderboard_musr_team_allocation": {
+      "task": "leaderboard_musr_team_allocation",
+      "dataset_path": "TAUR-Lab/MuSR",
+      "test_split": "team_allocation",
+      "doc_to_text": "def doc_to_text(doc):\n    \"\"\"\n    Convert a doc to text.\n    \"\"\"\n    choices = \"\"\n    for i, choice in enumerate(ast.literal_eval(doc[\"choices\"])):\n        choices += f\"({chr(i+97)}) - {choice}\\n\" # 정답 인덱싱 추가\n\n    text = DOC_TO_TEXT.format(\n        narrative=doc[\"narrative\"], question=doc[\"question\"], choices=choices\n    )\n    return text\n",
+      "doc_to_target": "def get_answer(doc):\n    # 1~4까지의 인덱스를 a~d로 변환\n    return f\"({chr(doc['answer_index']+96)})\"\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "exact_match",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "\n\n"
+        ],
+        "do_sample": false
+      },
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 1.0
+      }
+    }
+  },
+  "versions": {
+    "leaderboard_musr_murder_mysteries": 1.0,
+    "leaderboard_musr_object_placements": 1.0,
+    "leaderboard_musr_team_allocation": 1.0
+  },
+  "n-shot": {
+    "leaderboard_musr_murder_mysteries": 0,
+    "leaderboard_musr_object_placements": 0,
+    "leaderboard_musr_team_allocation": 0
+  },
+  "higher_is_better": {
+    "leaderboard_musr": {
+      "exact_match": true
+    },
+    "leaderboard_musr_murder_mysteries": {
+      "exact_match": true
+    },
+    "leaderboard_musr_object_placements": {
+      "exact_match": true
+    },
+    "leaderboard_musr_team_allocation": {
+      "exact_match": true
+    }
+  },
+  "n-samples": {
+    "leaderboard_musr_murder_mysteries": {
+      "original": 250,
+      "effective": 10
+    },
+    "leaderboard_musr_object_placements": {
+      "original": 256,
+      "effective": 10
+    },
+    "leaderboard_musr_team_allocation": {
+      "original": 250,
+      "effective": 10
+    }
+  },
+  "config": {
+    "model": "openai-chat-completions",
+    "model_args": "model=gpt-4o",
+    "batch_size": "auto",
+    "batch_sizes": [],
+    "device": null,
+    "use_cache": null,
+    "limit": 10.0,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": null,
+    "random_seed": 0,
+    "numpy_seed": 1234,
+    "torch_seed": 1234,
+    "fewshot_seed": 1234
+  },
+  "git_hash": "043c7387",
+  "date": 1732199393.537854,
+  "pretty_env_info": "PyTorch version: 2.4.1\nIs debug build: False\nCUDA used to build PyTorch: None\nROCM used to build PyTorch: N/A\n\nOS: macOS 15.1 (arm64)\nGCC version: Could not collect\nClang version: 16.0.0 (clang-1600.0.26.4)\nCMake version: Could not collect\nLibc version: N/A\n\nPython version: 3.12.5 (v3.12.5:ff3bc82f7c9, Aug  7 2024, 05:32:06) [Clang 13.0.0 (clang-1300.0.29.30)] (64-bit runtime)\nPython platform: macOS-15.1-arm64-arm-64bit\nIs CUDA available: False\nCUDA runtime version: No CUDA\nCUDA_MODULE_LOADING set to: N/A\nGPU models and configuration: No CUDA\nNvidia driver version: No CUDA\ncuDNN version: No CUDA\nHIP runtime version: N/A\nMIOpen runtime version: N/A\nIs XNNPACK available: True\n\nCPU:\nApple M1 Pro\n\nVersions of relevant libraries:\n[pip3] numpy==2.1.0\n[pip3] torch==2.4.1\n[conda] numpy                     2.1.3                    pypi_0    pypi",
+  "transformers_version": "4.44.2",
+  "upper_git_hash": null,
+  "task_hashes": {
+    "leaderboard_musr_murder_mysteries": "e4aff63dd077aa700f049cb17a3b3896baf60ec2cd849697d8213ad72af73d52",
+    "leaderboard_musr_object_placements": "52cd6398bec8fcba6ecfedb62e72366478250874fa38bf243dd53a0949ecc4e3",
+    "leaderboard_musr_team_allocation": "bff28919ae7d183e631570b0e526ed3e0ea174de7081f2e62d745bc2358a8dc4"
+  },
+  "model_source": "openai-chat-completions",
+  "model_name": "gpt-4o",
+  "model_name_sanitized": "gpt-4o",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": false,
+  "chat_template": "",
+  "chat_template_sha": null,
+  "start_time": 156351.551150583,
+  "end_time": 156398.680332416,
+  "total_evaluation_time_seconds": "47.12918183300644"
+}
