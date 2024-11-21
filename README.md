@@ -13,3 +13,8 @@ Tasks can be run with sh scripts files for better integrated tests within the te
 - integrate BBH yaml files into this repo
 - make each sh files
 - integrate results files into the repo
+
+#### info
+
+This repo is branched from `LM-Evaluation-Harness 0.4.5 Release`
+In case of merging with latest LM-Evaluation-Harness version please inform the repo owner: allenlee-37
