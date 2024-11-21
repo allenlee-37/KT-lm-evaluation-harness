@@ -1,48 +1,59 @@
 dataset_name: ruin_names
-description: 'Select the humorous edit that ''ruins'' the input movie or musical artist
-  name.'
-doc_to_choice: ["(A)","(B)","(C)","(D)","(E)","(F)"]
+description:
+  "Select the humorous edit that 'ruins' the input movie or musical artist
+  name."
+doc_to_text: "Q: {{input}} \nA:"
+# doc_to_choice: ["(A)","(B)","(C)","(D)","(E)","(F)"]
 fewshot_config:
   sampler: first_n
   samples:
-  - input: 'Which of the following is a humorous edit of this artist or movie name:
-      ''whitesnake''?
+    - input:
+        "Which of the following is a humorous edit of this artist or movie name:
+        'whitesnake'?
 
-      Options:
+        Options:
 
-      (A) whitesnape
+        (A) whitesnape
 
-      (B) whitesnapke
+        (B) whitesnapke
 
-      (C) whitesnuake
+        (C) whitesnuake
 
-      (D) mwhitesnake'
-    target: (A)
-  - input: 'Which of the following is a humorous edit of this artist or movie name:
-      ''one of our dinosaurs is missing''?
+        (D) mwhitesnake"
+      target: (A)
+    - input:
+        "Which of the following is a humorous edit of this artist or movie name:
+        'one of our dinosaurs is missing'?
 
-      Options:
+        Options:
 
-      (A) ofne of our dinosaurs is missing
+        (A) ofne of our dinosaurs is missing
 
-      (B) one af our dinosaurs is missing
+        (B) one af our dinosaurs is missing
 
-      (C) one of our dinosaurs is pissing
+        (C) one of our dinosaurs is pissing
 
-      (D) one of our dinosaur is missing'
-    target: (C)
-  - input: 'Which of the following is a humorous edit of this artist or movie name:
-      ''counting crows''?
+        (D) one of our dinosaur is missing"
+      target: (C)
+    - input:
+        "Which of the following is a humorous edit of this artist or movie name:
+        'counting crows'?
 
-      Options:
+        Options:
 
-      (A) countingy crows
+        (A) countingy crows
 
-      (B) counting cows
+        (B) counting cows
 
-      (C) courting crows
+        (C) courting crows
 
-      (D) coutnting crows'
-    target: (B)
+        (D) coutnting crows"
+      target: (B)
 include: _fewshot_template_yaml
 task: leaderboard_bbh_ruin_names
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "\\([A-F]\\)"
+      - function: "take_first"

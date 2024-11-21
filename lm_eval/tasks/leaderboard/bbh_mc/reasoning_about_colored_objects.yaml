@@ -1,114 +1,124 @@
 dataset_name: reasoning_about_colored_objects
-description: 'Answer extremely simple questions about the colors of objects on a surface.'
-doc_to_choice: ["(A)","(B)","(C)","(D)","(E)","(F)","(G)","(H)","(I)","(J)","(K)","(L)","(M)","(N)","(O)","(P)","(Q)","(R)"]
+description: "Answer extremely simple questions about the colors of objects on a surface."
+doc_to_text: "Q: {{input}} \nA:"
+#doc_to_choice: ["(A)","(B)","(C)","(D)","(E)","(F)","(G)","(H)","(I)","(J)","(K)","(L)","(M)","(N)","(O)","(P)","(Q)","(R)"]
 fewshot_config:
   sampler: first_n
   samples:
-  - input: 'On the nightstand, there is a red pencil, a purple mug, a burgundy keychain,
-      a fuchsia teddy bear, a black plate, and a blue stress ball. What color is the
-      stress ball?
+    - input:
+        "On the nightstand, there is a red pencil, a purple mug, a burgundy keychain,
+        a fuchsia teddy bear, a black plate, and a blue stress ball. What color is the
+        stress ball?
 
-      Options:
+        Options:
 
-      (A) red
+        (A) red
 
-      (B) orange
+        (B) orange
 
-      (C) yellow
+        (C) yellow
 
-      (D) green
+        (D) green
 
-      (E) blue
+        (E) blue
 
-      (F) brown
+        (F) brown
 
-      (G) magenta
+        (G) magenta
 
-      (H) fuchsia
+        (H) fuchsia
 
-      (I) mauve
+        (I) mauve
 
-      (J) teal
+        (J) teal
 
-      (K) turquoise
+        (K) turquoise
 
-      (L) burgundy
+        (L) burgundy
 
-      (M) silver
+        (M) silver
 
-      (N) gold
+        (N) gold
 
-      (O) black
+        (O) black
 
-      (P) grey
+        (P) grey
 
-      (Q) purple
+        (Q) purple
 
-      (R) pink'
-    target: (E)
-  - input: 'On the table, you see a bunch of objects arranged in a row: a purple paperclip,
-      a pink stress ball, a brown keychain, a green scrunchiephone charger, a mauve
-      fidget spinner, and a burgundy pen. What is the color of the object directly
-      to the right of the stress ball?
+        (R) pink"
+      target: (E)
+    - input:
+        "On the table, you see a bunch of objects arranged in a row: a purple paperclip,
+        a pink stress ball, a brown keychain, a green scrunchiephone charger, a mauve
+        fidget spinner, and a burgundy pen. What is the color of the object directly
+        to the right of the stress ball?
 
-      Options:
+        Options:
 
-      (A) red
+        (A) red
 
-      (B) orange
+        (B) orange
 
-      (C) yellow
+        (C) yellow
 
-      (D) green
+        (D) green
 
-      (E) blue
+        (E) blue
 
-      (F) brown
+        (F) brown
 
-      (G) magenta
+        (G) magenta
 
-      (H) fuchsia
+        (H) fuchsia
 
-      (I) mauve
+        (I) mauve
 
-      (J) teal
+        (J) teal
 
-      (K) turquoise
+        (K) turquoise
 
-      (L) burgundy
+        (L) burgundy
 
-      (M) silver
+        (M) silver
 
-      (N) gold
+        (N) gold
 
-      (O) black
+        (O) black
 
-      (P) grey
+        (P) grey
 
-      (Q) purple
+        (Q) purple
 
-      (R) pink'
-    target: (F)
-  - input: 'On the nightstand, you see the following items arranged in a row: a teal
-      plate, a burgundy keychain, a yellow scrunchiephone charger, an orange mug,
-      a pink notebook, and a grey cup. How many non-orange items do you see to the
-      left of the teal item?
+        (R) pink"
+      target: (F)
+    - input:
+        "On the nightstand, you see the following items arranged in a row: a teal
+        plate, a burgundy keychain, a yellow scrunchiephone charger, an orange mug,
+        a pink notebook, and a grey cup. How many non-orange items do you see to the
+        left of the teal item?
 
-      Options:
+        Options:
 
-      (A) zero
+        (A) zero
 
-      (B) one
+        (B) one
 
-      (C) two
+        (C) two
 
-      (D) three
+        (D) three
 
-      (E) four
+        (E) four
 
-      (F) five
+        (F) five
 
-      (G) six'
-    target: (A)
+        (G) six"
+      target: (A)
 include: _fewshot_template_yaml
 task: leaderboard_bbh_reasoning_about_colored_objects
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "\\([A-Z]\\)"
+      - function: "take_first"

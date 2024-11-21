@@ -1,52 +1,62 @@
 dataset_name: movie_recommendation
-description: 'Recommend movies similar to the given list of movies.'
-doc_to_choice: ["(A)","(B)","(C)","(D)","(E)","(F)"]
+description: "Recommend movies similar to the given list of movies."
+doc_to_text: "Q: {{input}} \nA:"
+# doc_to_choice: ["(A)","(B)","(C)","(D)","(E)","(F)"]
 fewshot_config:
   sampler: first_n
   samples:
-  - input: 'Find a movie similar to Star Wars Episode IV - A New Hope, Indiana Jones
-      and the Last Crusade, Star Wars Episode V - The Empire Strikes Back, The Big
-      Lebowski:
+    - input:
+        "Find a movie similar to Star Wars Episode IV - A New Hope, Indiana Jones
+        and the Last Crusade, Star Wars Episode V - The Empire Strikes Back, The Big
+        Lebowski:
 
-      Options:
+        Options:
 
-      (A) Tetsuo
+        (A) Tetsuo
 
-      (B) the Ironman
+        (B) the Ironman
 
-      (C) The Princess Bride
+        (C) The Princess Bride
 
-      (D) The Barkley Marathons The Race That Eats Its Young
+        (D) The Barkley Marathons The Race That Eats Its Young
 
-      (E) Bug'
-    target: (C)
-  - input: 'Find a movie similar to Twister, The Silence of the Lambs, Independence
-      Day, Braveheart:
+        (E) Bug"
+      target: (C)
+    - input:
+        "Find a movie similar to Twister, The Silence of the Lambs, Independence
+        Day, Braveheart:
 
-      Options:
+        Options:
 
-      (A) They Shoot Horses
+        (A) They Shoot Horses
 
-      (B) Don''t They
+        (B) Don't They
 
-      (C) Forrest Gump
+        (C) Forrest Gump
 
-      (D) The Salton Sea
+        (D) The Salton Sea
 
-      (E) Extreme Days'
-    target: (C)
-  - input: 'Find a movie similar to Minority Report, Total Recall, Inside Out, Forrest
-      Gump:
+        (E) Extreme Days"
+      target: (C)
+    - input:
+        "Find a movie similar to Minority Report, Total Recall, Inside Out, Forrest
+        Gump:
 
-      Options:
+        Options:
 
-      (A) Phenomena
+        (A) Phenomena
 
-      (B) Lilting
+        (B) Lilting
 
-      (C) Catwoman
+        (C) Catwoman
 
-      (D) Edge of Tomorrow'
-    target: (D)
+        (D) Edge of Tomorrow"
+      target: (D)
 include: _fewshot_template_yaml
 task: leaderboard_bbh_movie_recommendation
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "\\([A-F]\\)"
+      - function: "take_first"

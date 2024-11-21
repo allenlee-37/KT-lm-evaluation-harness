@@ -12,7 +12,11 @@ Tasks can be run with sh scripts files for better integrated tests within the te
 
 **_변경사항 📣_**
 
-- [2024/11] Ko-winogrande task 추가 (KT 내부 벤치마크).
+- [2024/11/21] Exact_mactch yaml 파일 변환
+  - Leaderboard > bbh_mc:
+    - boolean_expressions
+    - causal_judgement
+- [2024/11/20] Ko-winogrande task 추가 (KT 내부 벤치마크).
 - GPT API 호출을 위해 exact-match 형태로 변환됨. (logprobability 방식 사용하지 않을 것)
 
 ## TODO
