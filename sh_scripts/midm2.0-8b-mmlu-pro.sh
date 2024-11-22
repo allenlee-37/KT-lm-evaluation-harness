@@ -9,4 +9,5 @@ lm_eval --model $model \
     --output_path output \
     --batch_size auto \
     --log_samples \
-    --apply_chat_template
+    --apply_chat_template \
+    --limit 10
