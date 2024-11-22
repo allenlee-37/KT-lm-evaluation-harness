@@ -21,3 +21,13 @@ fewshot_config:
       target: "8"
 include: _fewshot_template_yaml
 task: leaderboard_bbh_object_counting
+filter_list:
+  - name: "strict-match"
+    filter:
+      - function: "take_first"
+  - name: "flexible-extract"
+    filter:
+      - function: !function utils.NumberParseRegexFilter
+        group_select: 0
+        regex_pattern: "([-0-9]+)"
+      - function: "take_first"
