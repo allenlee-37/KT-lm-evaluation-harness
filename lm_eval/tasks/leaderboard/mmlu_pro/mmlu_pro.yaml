@@ -21,3 +21,9 @@ generation_kwargs:
     - "Question:"
     - </s>
     - <|im_end|>
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "[A-Z]"
+      - function: "take_first"

@@ -2,7 +2,7 @@ import string
 
 
 def doc_to_text(doc):
-    doc_to_text = f"{doc['question']}\n"
+    doc_to_text = f"What is the correct answer to this question? Please do not add any explanation, just give me the correct answer between options (A-Z).  {doc['question']}\n"
 
     for i in range(len(doc["options"])):
         # () 감쌀 수 있게 수정
