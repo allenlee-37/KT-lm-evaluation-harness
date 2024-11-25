@@ -1,30 +1,36 @@
 dataset_path: Idavidrein/gpqa
-output_type: generate_until #multiple_choice
+output_type: generate_until
 process_docs: !function utils.process_docs
 training_split: train
 # Because huggingface dataset only has train split
 validation_split: train
 test_split: null
-doc_to_text: "What is the correct answer to this question? Please do not add any explanation, just give me the correct answer between options (A), (B), (C), or (D). Question:{{Question}}\nChoices:\n(A) {{choice1}}\n(B) {{choice2}}\n(C) {{choice3}}\n(D) {{choice4}}\n the answer is: "
-doc_to_target: answer
-# doc_to_choice: ["(A)", "(B)", "(C)", "(D)"]
+doc_to_text: "What is the correct answer to this question:{{Question.strip()}}\n(A) {{choice1}}\n(B) {{choice2}}\n(C) {{choice3}}\n(D) {{choice4}}\nAnswer："
+doc_to_target: answer_
 num_fewshot: 0
 metric_list:
-  - metric: exact_match # acc_norm
+  - metric: exact_match
     aggregation: mean
     higher_is_better: true
-metadata:
-  version: 1.0
-fewshot_config:
-  sampler: first_n
-generation_kwargs:
-  until:
-    - "</s>"
-  do_sample: false
-  temperature: 0.0
+    ignore_case: true
+    ignore_punctuation: true
+    regexes_to_ignore:
+      - " "
+
 filter_list:
   - name: "get-answer"
     filter:
       - function: "regex"
-        regex_pattern: "\\([A-D]\\)"
+        regex_pattern: "([A-D])"
       - function: "take_first"
+
+generation_kwargs:
+  until:
+    - "Q:"
+    - "\n\n"
+    - "</s>"
+    - "."
+  do_sample: false
+  temperature: 0.0
+metadata:
+  version: 2.0
