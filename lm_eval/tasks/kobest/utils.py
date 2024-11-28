@@ -1,13 +1,18 @@
 from datasets import Dataset
 
+def boolq_label_to_text(doc: dict) -> str:
+    correct_choice = "예" if doc['label'] == 1 else "아니오"
+    return f"""{correct_choice}"""
 
 def copa_doc_to_text(doc: dict) -> str:
     connector = {"원인": " 왜냐하면", "결과": " 그래서"}[doc["question"].strip()]
-    return f"""{doc["premise"]} {connector}"""
+    system = "다음 전제와 이어지는 보기가 있습니다. 둘 중 더 알맞은 보기를 선택해주세요. 부가 설명 없이 1과 2 중에 선택해주세요."
+    text = f"""전제: {doc['premise']} {connector}:\n1.{doc['alternative_1']}\n2.{doc['alternative_2']}"""
+    return f"""{system} {text}"""
 
 
 def copa_doc_to_target(doc: dict) -> str:
-    correct_choice = doc["alternative_1"] if doc["label"] == 0 else doc["alternative_2"]
+    correct_choice = 1 if doc["label"] == 0 else 2
     return f"""{correct_choice}"""
 
 
@@ -16,17 +21,26 @@ def copa_doc_to_choice(doc: dict) -> list:
 
 
 def sentineg_doc_to_text(doc: dict):
-    return f"""문장: {doc["sentence"]} 긍부정:"""
+    system = """다음 문장에 대한 긍부정을 판단해주세요. 긍정일 경우 "1", 부정일 경우 "0"을 선택해주세요."""
+    querry = f"""문장: {doc["sentence"]} 긍부정:"""
+    return f"{system} {querry}"
 
 
 def wic_doc_to_text(doc: dict) -> str:
-    return f"""문장1: {doc["context_1"]} 문장2: {doc["context_2"]} 두 문장에서 {doc["word"]}가 같은 뜻으로 쓰였나?"""
+    system = """아래 문제를 보고 두 문장이 같은 뜻으로 쓰였는지 판단해주세요. 같은 뜻이라면 "예", 다른 뜻이라면 "아니오"를 선택해주세요."""
+    querry = f"""문장1: {doc["context_1"]}\n문장2: {doc["context_2"]}\n두 문장에서 {doc["word"]}가 같은 뜻으로 쓰였나?"""
+    return f"{system} {querry}"
 
+def wic_doc_to_target(doc: dict) -> str:
+    correct_choice = "아니오" if doc["label"] == 0 else "예"
+    return f"""{correct_choice}"""
 
 def hellaswag_process_doc(doc: Dataset) -> Dataset:
     def preprocessor(dataset):
+        ### 시스템 프롬프트 추가
+        system = """문장에 이어지는 보기 1,2,3,4 중에 가장 적절한 보기를 선택해주세요."""
         return {
-            "query": f"""문장: {dataset["context"]}""",
+            "query": f"""{system}\n문장: {dataset["context"]}""",
             "choices": [
                 dataset["ending_1"],
                 dataset["ending_2"],

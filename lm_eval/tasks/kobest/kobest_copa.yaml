@@ -14,10 +14,11 @@ metric_list:
   - metric: exact_match
     aggregation: mean
     higher_is_better: True
-  - metric: f1
-    aggregation: !function utils.macro_f1_score
-    average: macro
-    hf_evaluate: true
-    higher_is_better: True
 metadata:
   version: 1.0
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "(1|2)"
+      - function: "take_first"
