@@ -5,14 +5,14 @@ dataset_path: skt/kobest_v1
 dataset_name: hellaswag
 training_split: train
 validation_split: validation
-output_type: multiple_choice
+output_type: generate_until # multiple_choice
 test_split: test
 doc_to_text: "{{query}}"
 doc_to_target: "{{label}}"
 process_docs: !function utils.hellaswag_process_doc
-doc_to_choice: "choices"
+# doc_to_choice: "choices"
 metric_list:
-  - metric: acc
+  - metric: exact_match
     aggregation: mean
     higher_is_better: True
   - metric: acc_norm
