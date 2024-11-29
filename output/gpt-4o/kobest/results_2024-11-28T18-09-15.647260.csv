@@ -1,0 +1,6 @@
+alias,"exact_match,get-answer","exact_match_stderr,get-answer","exact_match,none","exact_match_stderr,none"
+kobest_boolq,0.9565527065527065,0.005442607058113144,,
+kobest_copa,0.98,0.0044294039801783276,,
+kobest_hellaswag,0.746,0.019486596801643385,,
+kobest_sentineg,,,0.982367758186398,0.006613680698322635
+kobest_wic,,,0.35555555555555557,0.013490672872121768
