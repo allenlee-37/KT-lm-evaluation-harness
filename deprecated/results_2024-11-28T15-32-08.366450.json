@@ -1,0 +1,101 @@
+{
+  "results": {
+    "kobest_boolq": {
+      "alias": "kobest_boolq",
+      "exact_match,none": 0.0,
+      "exact_match_stderr,none": 0.0
+    }
+  },
+  "group_subtasks": {
+    "kobest_boolq": []
+  },
+  "configs": {
+    "kobest_boolq": {
+      "task": "kobest_boolq",
+      "tag": [
+        "kobest"
+      ],
+      "dataset_path": "skt/kobest_v1",
+      "dataset_name": "boolq",
+      "training_split": "train",
+      "validation_split": "validation",
+      "test_split": "test",
+      "doc_to_text": "다음 질문은 '예' 혹은 '아니오'로 대답하시오. \n\n {{paragraph}} 질문: {{question}} 답변: ",
+      "doc_to_target": "def boolq_label_to_text(doc: dict) -> str:\n    correct_choice = \"예\" if doc['label'] == 1 else \"아니오\"\n    return f\"\"\"{correct_choice}\"\"\"\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "exact_match",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "\n\n"
+        ],
+        "do_sample": false
+      },
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 1.0
+      }
+    }
+  },
+  "versions": {
+    "kobest_boolq": 1.0
+  },
+  "n-shot": {
+    "kobest_boolq": 0
+  },
+  "higher_is_better": {
+    "kobest_boolq": {
+      "exact_match": true
+    }
+  },
+  "n-samples": {
+    "kobest_boolq": {
+      "original": 1404,
+      "effective": 10
+    }
+  },
+  "config": {
+    "model": "openai-chat-completions",
+    "model_args": "model=gpt-4o",
+    "batch_size": "auto",
+    "batch_sizes": [],
+    "device": null,
+    "use_cache": null,
+    "limit": 10.0,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": null,
+    "random_seed": 0,
+    "numpy_seed": 1234,
+    "torch_seed": 1234,
+    "fewshot_seed": 1234
+  },
+  "git_hash": "12a266ca",
+  "date": 1732775516.103389,
+  "pretty_env_info": "PyTorch version: 2.4.1\nIs debug build: False\nCUDA used to build PyTorch: None\nROCM used to build PyTorch: N/A\n\nOS: macOS 15.1.1 (arm64)\nGCC version: Could not collect\nClang version: 16.0.0 (clang-1600.0.26.4)\nCMake version: Could not collect\nLibc version: N/A\n\nPython version: 3.12.5 (v3.12.5:ff3bc82f7c9, Aug  7 2024, 05:32:06) [Clang 13.0.0 (clang-1300.0.29.30)] (64-bit runtime)\nPython platform: macOS-15.1.1-arm64-arm-64bit\nIs CUDA available: False\nCUDA runtime version: No CUDA\nCUDA_MODULE_LOADING set to: N/A\nGPU models and configuration: No CUDA\nNvidia driver version: No CUDA\ncuDNN version: No CUDA\nHIP runtime version: N/A\nMIOpen runtime version: N/A\nIs XNNPACK available: True\n\nCPU:\nApple M1 Pro\n\nVersions of relevant libraries:\n[pip3] numpy==2.1.0\n[pip3] torch==2.4.1\n[conda] numpy                     2.1.3                    pypi_0    pypi",
+  "transformers_version": "4.44.2",
+  "upper_git_hash": null,
+  "task_hashes": {
+    "kobest_boolq": "e8b7f671ab90602a325fb28dfa6796ce6b637c255972d3e1a70f54a80c932144"
+  },
+  "model_source": "openai-chat-completions",
+  "model_name": "gpt-4o",
+  "model_name_sanitized": "gpt-4o",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": false,
+  "chat_template": "",
+  "chat_template_sha": null,
+  "start_time": 15861.683091291,
+  "end_time": 15877.638031916,
+  "total_evaluation_time_seconds": "15.954940624998926"
+}

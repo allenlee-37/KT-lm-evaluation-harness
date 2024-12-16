@@ -5,23 +5,21 @@ dataset_path: skt/kobest_v1
 dataset_name: hellaswag
 training_split: train
 validation_split: validation
-output_type: multiple_choice
+output_type: generate_until # multiple_choice
 test_split: test
-doc_to_text: "{{query}}"
-doc_to_target: "{{label}}"
+doc_to_text: "{{query}} 1. {{choices[0]}}, 2. {{choices[1]}}, 3. {{choices[2]}}, 4. {{choices[3]}}"
+doc_to_target: "{{label+1}}"
 process_docs: !function utils.hellaswag_process_doc
-doc_to_choice: "choices"
+# doc_to_choice: "choices"
 metric_list:
-  - metric: acc
+  - metric: exact_match
     aggregation: mean
-    higher_is_better: True
-  - metric: acc_norm
-    aggregation: mean
-    higher_is_better: True
-  - metric: f1
-    aggregation: !function utils.macro_f1_score
-    average: macro
-    hf_evaluate: true
     higher_is_better: True
 metadata:
   version: 1.0
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "[1-4]"
+      - function: "take_first"

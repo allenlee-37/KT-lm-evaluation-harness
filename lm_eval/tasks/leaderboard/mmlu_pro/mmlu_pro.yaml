@@ -15,15 +15,15 @@ metric_list:
 num_fewshot: 5
 metadata:
   version: 0.1
-filter_list:
-  - name: "get-answer"
-    filter:
-      - function: "regex"
-        regex_pattern: "\\([A-Z]\\)"
-      - function: "take_first"
 generation_kwargs:
   do_sample: false
   until:
     - "Question:"
     - </s>
     - <|im_end|>
+filter_list:
+  - name: "get-answer"
+    filter:
+      - function: "regex"
+        regex_pattern: "[A-Z]"
+      - function: "take_first"

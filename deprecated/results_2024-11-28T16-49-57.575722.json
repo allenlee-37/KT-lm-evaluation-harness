@@ -1,0 +1,116 @@
+{
+  "results": {
+    "kobest_hellaswag": {
+      "alias": "kobest_hellaswag",
+      "exact_match,get-answer": 1.0,
+      "exact_match_stderr,get-answer": 0.0
+    }
+  },
+  "group_subtasks": {
+    "kobest_hellaswag": []
+  },
+  "configs": {
+    "kobest_hellaswag": {
+      "task": "kobest_hellaswag",
+      "tag": [
+        "kobest"
+      ],
+      "dataset_path": "skt/kobest_v1",
+      "dataset_name": "hellaswag",
+      "training_split": "train",
+      "validation_split": "validation",
+      "test_split": "test",
+      "process_docs": "def hellaswag_process_doc(doc: Dataset) -> Dataset:\n    def preprocessor(dataset):\n        ### 시스템 프롬프트 추가\n        system = \"\"\"문장에 이어지는 보기 1,2,3,4 중에 가장 적절한 보기를 선택해주세요.\"\"\"\n        return {\n            \"query\": f\"\"\"{system}\\n문장: {dataset[\"context\"]}\"\"\",\n            \"choices\": [\n                dataset[\"ending_1\"],\n                dataset[\"ending_2\"],\n                dataset[\"ending_3\"],\n                dataset[\"ending_4\"],\n            ],\n            \"gold\": int(dataset[\"label\"]),\n        }\n\n    return doc.map(preprocessor)\n",
+      "doc_to_text": "{{query}} 1. {{choices[0]}}, 2. {{choices[1]}}, 3. {{choices[2]}}, 4. {{choices[3]}}",
+      "doc_to_target": "{{label+1}}",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "exact_match",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "\n\n"
+        ],
+        "do_sample": false
+      },
+      "repeats": 1,
+      "filter_list": [
+        {
+          "name": "get-answer",
+          "filter": [
+            {
+              "function": "regex",
+              "regex_pattern": "[1-4]"
+            },
+            {
+              "function": "take_first"
+            }
+          ]
+        }
+      ],
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 1.0
+      }
+    }
+  },
+  "versions": {
+    "kobest_hellaswag": 1.0
+  },
+  "n-shot": {
+    "kobest_hellaswag": 0
+  },
+  "higher_is_better": {
+    "kobest_hellaswag": {
+      "exact_match": true
+    }
+  },
+  "n-samples": {
+    "kobest_hellaswag": {
+      "original": 500,
+      "effective": 10
+    }
+  },
+  "config": {
+    "model": "openai-chat-completions",
+    "model_args": "model=gpt-4o",
+    "batch_size": "auto",
+    "batch_sizes": [],
+    "device": null,
+    "use_cache": null,
+    "limit": 10.0,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": null,
+    "random_seed": 0,
+    "numpy_seed": 1234,
+    "torch_seed": 1234,
+    "fewshot_seed": 1234
+  },
+  "git_hash": "12a266ca",
+  "date": 1732780182.009547,
+  "pretty_env_info": "PyTorch version: 2.4.1\nIs debug build: False\nCUDA used to build PyTorch: None\nROCM used to build PyTorch: N/A\n\nOS: macOS 15.1.1 (arm64)\nGCC version: Could not collect\nClang version: 16.0.0 (clang-1600.0.26.4)\nCMake version: Could not collect\nLibc version: N/A\n\nPython version: 3.12.5 (v3.12.5:ff3bc82f7c9, Aug  7 2024, 05:32:06) [Clang 13.0.0 (clang-1300.0.29.30)] (64-bit runtime)\nPython platform: macOS-15.1.1-arm64-arm-64bit\nIs CUDA available: False\nCUDA runtime version: No CUDA\nCUDA_MODULE_LOADING set to: N/A\nGPU models and configuration: No CUDA\nNvidia driver version: No CUDA\ncuDNN version: No CUDA\nHIP runtime version: N/A\nMIOpen runtime version: N/A\nIs XNNPACK available: True\n\nCPU:\nApple M1 Pro\n\nVersions of relevant libraries:\n[pip3] numpy==2.1.0\n[pip3] torch==2.4.1\n[conda] numpy                     2.1.3                    pypi_0    pypi",
+  "transformers_version": "4.44.2",
+  "upper_git_hash": null,
+  "task_hashes": {
+    "kobest_hellaswag": "58f9378149a31dc45175529435927d25a97823715c597492baccb7b3da64e4c2"
+  },
+  "model_source": "openai-chat-completions",
+  "model_name": "gpt-4o",
+  "model_name_sanitized": "gpt-4o",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": false,
+  "chat_template": "",
+  "chat_template_sha": null,
+  "start_time": 20527.711600583,
+  "end_time": 20546.880507208,
+  "total_evaluation_time_seconds": "19.16890662500009"
+}
