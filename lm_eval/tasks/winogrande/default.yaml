@@ -4,9 +4,8 @@ dataset_name: winogrande_xl
 output_type: generate_until
 training_split: train
 validation_split: validation
-doc_to_text: "Q:{{sentence}} 1.{{option1}}, 2.{{option1}} 
-Answer with the number corresponding to the correct choice. 
-A:"
+doc_to_text: "Which one of the two options would be the most fit? answer the right options given and explain why \n\n
+Q:{{sentence}} 1.{{option1}}, 2.{{option2}}" 
 doc_to_target: "{{answer}}"
 # doc_to_choice: !function preprocess_winogrande.doc_to_choice
 should_decontaminate: true
